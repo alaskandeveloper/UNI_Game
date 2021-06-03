@@ -19,7 +19,6 @@ type
     procedure BClearClick(Sender: TObject);
     procedure BDrawClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure Image2Click(Sender: TObject);
   private
 
   public
@@ -35,15 +34,16 @@ implementation
 
 { TForm1 }
 type
+  Directs = (N,W,E,S);
+  Point = record
+    X:integer;
+    Y:integer;
 
-  SnakeParts = record
-    HeadX:integer;
-    HeadY:integer;
-    BodyX:integer;
-    BodyY:integer;
-    TailX:integer;
-    TailY:integer;
+  end;
 
+  TSnake = record
+    Face:Directs;
+    Body:array[1..50] of array [1..50] of Point;
   end;
 
 
@@ -56,31 +56,51 @@ var
   CurOffSetY:integer;
   i,j:integer;
   MapSize,LineSize:integer;
+  Snake:TSnake;
 
 
 
-  Snake: array [1..50] of array [1..50] of SnakeParts;
+
+ procedure SnakeMove();
+ begin
 
 
+
+ end;
 
 
 procedure DrawSnake();
 begin
-
-
      Form1.Canvas.Brush.Color := stdColor;
      for i:= 1 to 50 do begin
          for j:= 1 to 50 do begin
-
-             if (j = 1) and (i =1) then
-                Form1.Canvas.FillRect(Snake[i,j].HeadX,Snake[i,j].HeadY,Snake[i,j].TailX,Snake[i,j].TailY+BlockSize);
+                Form1.Canvas.FillRect(100,100,200,100);
          end;
-
      end;
 end;
 
 procedure DrawMap();
 begin
+    CurOffSetX:=0;
+    CurOffSetY:=0;
+    Form1.Canvas.Clear;
+    Form1.Canvas.Brush.Color := 1;
+    for i:= 1 to MapSize do begin
+        CurOffSetX:=0;
+        Line:=Map[i];
+        for j:= 1 to LineSize do  begin
+            if Line[j] = '#' then
+               Form1.Canvas.FillRect(CurOffSetX,CurOffSetY,CurOffSetX+BlockSize,CurOffSetY+BlockSize);
+            CurOffSetX:=CurOffSetX+BlockSize;
+        end;
+        CurOffSetY:=CurOffSetY+BlockSize;
+    end;
+end;
+
+procedure NewGame();
+begin
+    MapSize:=14;
+    LineSize:=21;
     Map[1]:='#####################';
     Map[2]:='#                   #';
     Map[3]:='#                   #';
@@ -95,41 +115,7 @@ begin
     Map[12]:='#                   #';
     Map[13]:='#                   #';
     Map[14]:='#####################';
-     Form1.Canvas.Clear;
-    Form1.Canvas.Brush.Color := 1;
-    CurOffSetY:=0;
-    for i:= 1 to MapSize do begin
-        CurOffSetX:=0;
-        Line:=Map[i];
-        for j:= 1 to LineSize do  begin
-            if Line[j] = '#' then
-               Form1.Canvas.FillRect(CurOffSetX,CurOffSetY,CurOffSetX+BlockSize,CurOffSetY+BlockSize);
-
-            CurOffSetX:=CurOffSetX+BlockSize;
-        end;
-        CurOffSetY:=CurOffSetY+BlockSize;
-    end;
-
-end;
-
-procedure NewGame();
-
-
-begin
-    Snake[1,1].HeadX:=100;
-    Snake[1,1].HeadY:=100;
-    Snake[1,1].BodyX :=100;
-    Snake[1,1].BodyY :=100;
-    Snake[1,1].TailX :=200;
-    Snake[1,1].TailY :=100;
-
-
-
-     CurOffSetX:=0;
-    CurOffSetY:=0;
     BlockSize:=20;
-    MapSize:=14;
-    LineSize:=21;
     stdColor := RGBToColor(206, 224, 166);
 
 
@@ -139,7 +125,6 @@ procedure Graphics();
 begin
     DrawMap();
     DrawSnake();
-
 
 end;
 
@@ -156,17 +141,6 @@ end;
 procedure TForm1.FormCreate(Sender: TObject);
 begin
      NewGame();
-
-
-end;
-
-
-
-
-
-procedure TForm1.Image2Click(Sender: TObject);
-begin
-
 end;
 
 
