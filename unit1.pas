@@ -80,7 +80,6 @@ var
    CurOffSetY:integer;
    Line:String;
 begin
-    CurOffSetX:=0;
     CurOffSetY:=0;
     Form1.Canvas.Clear;
     Form1.Canvas.Brush.Color := 1;
