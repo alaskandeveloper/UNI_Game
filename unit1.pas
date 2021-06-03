@@ -39,7 +39,6 @@ type
   Point = record
     X:integer;
     Y:integer;
-
   end;
 
   TSnake = record
@@ -49,30 +48,25 @@ type
 
 
 var
-  stdColor: TColor;
+  SnakeColor: TColor;
   Map:array [1..20] of string;
-  Line:string;
   BlockSize:integer;
-  CurOffSetX:integer;
-  CurOffSetY:integer;
   i,j:integer;
-  MapSize,LineSize:integer;
+  MapSize:integer;
   Snake:TSnake;
-
+  LineSize:integer;
 
 
 
  procedure SnakeMove();
  begin
 
-
-
  end;
 
 
 procedure DrawSnake();
 begin
-     Form1.Canvas.Brush.Color := stdColor;
+     Form1.Canvas.Brush.Color := SnakeColor;
      for i:= 1 to 50 do begin
          for j:= 1 to 50 do begin
                 Form1.Canvas.FillRect(100,100,200,100);
@@ -81,6 +75,10 @@ begin
 end;
 
 procedure DrawMap();
+var
+   CurOffSetX:integer;
+   CurOffSetY:integer;
+   Line:String;
 begin
     CurOffSetX:=0;
     CurOffSetY:=0;
@@ -117,7 +115,7 @@ begin
     Map[13]:='#                   #';
     Map[14]:='#####################';
     BlockSize:=20;
-    stdColor := RGBToColor(206, 224, 166);
+    SnakeColor := RGBToColor(206, 224, 166);
 
 
 end;
@@ -142,9 +140,7 @@ end;
 procedure TForm1.FormCreate(Sender: TObject);
 begin
      NewGame();
-     Snake.Face:=N;
-     if Snake.Face = N then
-     ShowMessage('Yes');
+
 end;
 
 procedure TForm1.Image2Click(Sender: TObject);
