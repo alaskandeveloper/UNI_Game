@@ -19,6 +19,7 @@ type
     procedure BClearClick(Sender: TObject);
     procedure BDrawClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure Image2Click(Sender: TObject);
   private
 
   public
@@ -141,6 +142,14 @@ end;
 procedure TForm1.FormCreate(Sender: TObject);
 begin
      NewGame();
+     Snake.Face:=N;
+     if Snake.Face = N then
+     ShowMessage('Yes');
+end;
+
+procedure TForm1.Image2Click(Sender: TObject);
+begin
+
 end;
 
 
