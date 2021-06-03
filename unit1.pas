@@ -49,6 +49,7 @@ type
 
 var
   SnakeColor: TColor;
+  WallColor:integer;
   Map:array [1..20] of string;
   BlockSize:integer;
   i,j:integer;
@@ -81,8 +82,8 @@ var
    Line:String;
 begin
     CurOffSetY:=0;
-    Form1.Canvas.Clear;
-    Form1.Canvas.Brush.Color := 1;
+    //Form1.Canvas.Clear;
+    Form1.Canvas.Brush.Color := WallColor;
     for i:= 1 to MapSize do begin
         CurOffSetX:=0;
         Line:=Map[i];
@@ -115,11 +116,12 @@ begin
     Map[14]:='#####################';
     BlockSize:=20;
     SnakeColor := RGBToColor(206, 224, 166);
+    WallColor:=1;
 
 
 end;
 
-procedure Graphics();
+procedure DrawGame();
 begin
     DrawMap();
     DrawSnake();
@@ -128,12 +130,12 @@ end;
 
 procedure TForm1.BClearClick(Sender: TObject);
 begin
-
+   Form1.Canvas.Clear;
 end;
 
 procedure TForm1.BDrawClick(Sender: TObject);
 begin
-    Graphics();
+    DrawGame();
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);
