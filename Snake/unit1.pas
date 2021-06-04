@@ -159,9 +159,9 @@ begin
       deltaLength:=deltaLength+1;
       Snake.Body[1].X:=deltaLength;
       Snake.Body[1].Y:=10;
-      Snake.Body[2].X:=deltaLength-((2-1));
+      Snake.Body[2].X:=deltaLength-1;
       Snake.Body[2].Y:=10;
-      Snake.Body[3].X:=deltaLength-((3-1));
+      Snake.Body[3].X:=deltaLength-2;
       Snake.Body[3].Y:=10;
       Form1.Canvas.Brush.Color:=RGBToColor(255, 255, 255);
       Form1.Canvas.FillRect(Snake.Body[3].X,Snake.Body[3].Y,Snake.Body[3].X-BlockSize,Snake.Body[3].Y-BlockSize);
