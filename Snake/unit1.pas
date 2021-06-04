@@ -40,7 +40,7 @@ type
     Y:integer;
   end;
 
-  TSnake = record
+TSnake = record
     Face:Directs;
     Body:array[1..50] of Point;
     CurLength:integer;
@@ -56,9 +56,7 @@ var
   i,j:integer;
   MapSize:integer;
   LineSize:integer;
-
   Snake:TSnake;
-
 
 function newPoint(X,Y:integer):point;
 begin
@@ -67,13 +65,18 @@ begin
 end;
 
 procedure drawSnake();
+var
+  locationX:integer;
+  locationY:integer;
 begin
      Form1.Canvas.Brush.Color := SnakeColor;
-     for i:= 1 to Snake.MaxLength do begin
-         if Snake.Body[i].X <> 0 then
-         Form1.Canvas.FillRect(Snake.Body[i].X*BlockSize,Snake.Body[i].Y*BlockSize,Snake.Body[i].X*BlockSize+BlockSize,Snake.Body[i].Y*BlockSize+BlockSize);
+     for i:= 1 to Snake.CurLength do begin
+         locationX:=Snake.Body[i].X*BlockSize;
+         locationY:=Snake.Body[i].Y*BlockSize;
+         if locationX <> 0 then
+         Form1.Canvas.FillRect(locationX,locationY,locationX + BlockSize,locationY + BlockSize);
      end;
-     Form1.Canvas.Brush.Color := RGBToColor(255, 255, 255);
+   //  Form1.Canvas.Brush.Color := RGBToColor(255, 255, 255);
 end;
 
 procedure createSnake();
@@ -112,7 +115,6 @@ procedure drawGame();
 begin
     DrawMap();
     DrawSnake();
-
 end;
 procedure newGame();
 begin
@@ -141,14 +143,10 @@ begin
     Map[19]:='#                                  #';
     Map[20]:='####################################';
 
-
     Form1.Canvas.Brush.Color:=RGBToColor(255, 255, 255);
     Form1.Canvas.FillRect(0,0,1000,1000);
     CreateSnake();
-
-
 end;
-
 
 procedure snakeMove();
 var
@@ -157,19 +155,15 @@ begin
     deltaLength:=7;
     while Snake.Body[1].X < 34 do begin
       deltaLength:=deltaLength+1;
-      Snake.Body[1].X:=deltaLength;
-      Snake.Body[1].Y:=10;
-      Snake.Body[2].X:=deltaLength-1;
-      Snake.Body[2].Y:=10;
-      Snake.Body[3].X:=deltaLength-2;
-      Snake.Body[3].Y:=10;
+      Snake.Body[1]:=newPoint(deltaLength,10);
+      Snake.Body[2]:=newPoint(deltaLength-1,10);
+      Snake.Body[3]:=newPoint(deltaLength-2,10);
       Form1.Canvas.Brush.Color:=RGBToColor(255, 255, 255);
       Form1.Canvas.FillRect(Snake.Body[3].X,Snake.Body[3].Y,Snake.Body[3].X-BlockSize,Snake.Body[3].Y-BlockSize);
       delay(100);
       DrawGame();
     end;
 end;
-
 
 procedure TForm1.BClearClick(Sender: TObject);
 begin
@@ -190,7 +184,6 @@ end;
 procedure TForm1.Image2Click(Sender: TObject);
 begin
 end;
-
 
 end.
 
