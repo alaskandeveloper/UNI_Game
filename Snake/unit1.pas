@@ -43,8 +43,8 @@ type
   TSnake = record
     Face:Directs;
     Body:array[1..50] of Point;
-    CurLengthSnake:integer;
-    MaxSnakeLength:integer;
+    CurLength:integer;
+    MaxLength:integer;
   end;
 
 
@@ -63,9 +63,9 @@ var
 procedure DrawSnake();
 begin
      Form1.Canvas.Brush.Color := SnakeColor;
-     for i:= 1 to Snake.MaxSnakeLength do begin
+     for i:= 1 to Snake.MaxLength do begin
          if Snake.Body[i].X <> 0 then
-         Form1.Canvas.FillRect(Snake.Body[i].X,Snake.Body[i].Y,Snake.Body[i].X+BlockSize,Snake.Body[i].Y+BlockSize);
+         Form1.Canvas.FillRect(Snake.Body[i].X*BlockSize,Snake.Body[i].Y*BlockSize,Snake.Body[i].X*BlockSize+BlockSize,Snake.Body[i].Y*BlockSize+BlockSize);
      end;
      Form1.Canvas.Brush.Color := RGBToColor(255, 255, 255);
 end;
@@ -73,14 +73,14 @@ end;
 procedure CreateSnake();
 begin
      Snake.Face:= E;
-     Snake.MaxSnakeLength:=50;
+     Snake.MaxLength:=50;
      SnakeColor:= RGBToColor(206, 224, 166);
-     Snake.Body[1].X:=7*BlockSize;
-     Snake.Body[1].Y:=10*BlockSize;
-     Snake.Body[2].X:=7*BlockSize-((2-1)*BlockSize);
-     Snake.Body[2].Y:=10*BlockSize;
-     Snake.Body[3].X:=7*BlockSize-((3-1)*BlockSize);
-     Snake.Body[3].Y:=10*BlockSize;
+     Snake.Body[1].X:=7;
+     Snake.Body[1].Y:=10;
+     Snake.Body[2].X:=7-((2-1));
+     Snake.Body[2].Y:=10;
+     Snake.Body[3].X:=7-((3-1));
+     Snake.Body[3].Y:=10;
 end;
 
 procedure DrawMap();
@@ -150,15 +150,15 @@ procedure SnakeMove();
 var
   deltaLength:integer;
 begin
-    deltaLength:=7*BlockSize;
-    while Snake.Body[1].X < 34*BlockSize do begin
-      deltaLength:=deltaLength+BlockSize;
+    deltaLength:=7;
+    while Snake.Body[1].X < 34 do begin
+      deltaLength:=deltaLength+1;
       Snake.Body[1].X:=deltaLength;
-      Snake.Body[1].Y:=10*BlockSize;
-      Snake.Body[2].X:=deltaLength-((2-1)*BlockSize);
-      Snake.Body[2].Y:=10*BlockSize;
-      Snake.Body[3].X:=deltaLength-((3-1)*BlockSize);
-      Snake.Body[3].Y:=10*BlockSize;
+      Snake.Body[1].Y:=10;
+      Snake.Body[2].X:=deltaLength-((2-1));
+      Snake.Body[2].Y:=10;
+      Snake.Body[3].X:=deltaLength-((3-1));
+      Snake.Body[3].Y:=10;
 
       Form1.Canvas.Brush.Color:=RGBToColor(255, 255, 255);
       Form1.Canvas.FillRect(Snake.Body[3].X,Snake.Body[3].Y,Snake.Body[3].X-BlockSize,Snake.Body[3].Y-BlockSize);
