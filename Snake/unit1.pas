@@ -54,7 +54,7 @@ var
   i,j:integer;
   MapSize:integer;
   Snake:TSnake;
-  MaxLengthSnake:integer;
+  MaxSnakeLength:integer;
   LineSize:integer;
 
 
@@ -64,7 +64,7 @@ var
 procedure DrawSnake();
 begin
      Form1.Canvas.Brush.Color := SnakeColor;
-     for i:= 1 to MaxLengthSize do begin
+     for i:= 1 to MaxSnakeLength do begin
          if Snake.Body[i].X <> 0 then
          Form1.Canvas.FillRect(Snake.Body[i].X,Snake.Body[i].Y,Snake.Body[i].X+BlockSize,Snake.Body[i].Y+BlockSize);
      end;
@@ -147,7 +147,7 @@ var
 begin
     deltaLength:=7*BlockSize;
     while Snake.Body[1].X < 34*BlockSize do begin
-      deltaLength:=deltaLength+*BlockSize;
+      deltaLength:=deltaLength+BlockSize;
       Snake.Body[1].X:=deltaLength;
       Snake.Body[1].Y:=10*BlockSize;
       Snake.Body[2].X:=deltaLength-((2-1)*BlockSize);
