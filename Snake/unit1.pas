@@ -19,6 +19,7 @@ type
     procedure BClearClick(Sender: TObject);
     procedure BDrawClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure Timer1StartTimer(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
   private
 
@@ -67,7 +68,9 @@ begin
 end;
 
 function nextLocation():Point;
-
+var
+  HeadX:integer;
+  HeadY:integer;
 begin
 
 end;
@@ -121,7 +124,8 @@ begin
 end;
 procedure drawGame();
 begin
-    DrawMap();
+    drawMap();
+    drawSnake();
 end;
 procedure newGame();
 begin
@@ -154,19 +158,7 @@ begin
 end;
 
 procedure snakeMove();
-var
-  deltaLength:integer;
 begin
-    deltaLength:=7;
-    while Snake.Body[1].X < 34 do begin
-      deltaLength:=deltaLength+1;
-      Snake.Body[1]:=newPoint(deltaLength,10);
-      Snake.Body[2]:=newPoint(deltaLength-1,10);
-      Snake.Body[3]:=newPoint(deltaLength-2,10);
-      Form1.Canvas.Brush.Color:=RGBToColor(255, 255, 255);
-      Form1.Canvas.FillRect(Snake.Body[3].X,Snake.Body[3].Y,Snake.Body[3].X-BlockSize,Snake.Body[3].Y-BlockSize);
-      DrawSnake();
-    end;
 end;
 
 procedure gameTick();
@@ -184,16 +176,18 @@ procedure TForm1.BDrawClick(Sender: TObject);
 begin
     Form1.Canvas.Brush.Color:=RGBToColor(255, 255, 255);
     Form1.Canvas.FillRect(0,0,1000,1000);
-    DrawGame();
-    SnakeMove();
+    Timer1.Enabled:=True;
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
     Form1.Canvas.Brush.Color:=RGBToColor(255, 255, 255);
     Form1.Canvas.FillRect(0,0,1000,1000);
-    NewGame();
-    Timer1.Enabled:=True;
+end;
+
+procedure TForm1.Timer1StartTimer(Sender: TObject);
+begin
+  newGame();
 end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);
