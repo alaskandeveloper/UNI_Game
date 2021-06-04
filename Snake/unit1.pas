@@ -15,10 +15,11 @@ type
   TForm1 = class(TForm)
     BDraw: TButton;
     BClear: TButton;
+    Timer1: TTimer;
     procedure BClearClick(Sender: TObject);
     procedure BDrawClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure Image2Click(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
   private
 
   public
@@ -57,6 +58,7 @@ var
   MapSize:integer;
   LineSize:integer;
   Snake:TSnake;
+  TickNumber:integer;
 
 function newPoint(X,Y:integer):point;
 begin
@@ -86,7 +88,7 @@ begin
          locationY:=Snake.Body[i].Y*BlockSize;
          Form1.Canvas.FillRect(locationX,locationY,locationX + BlockSize,locationY + BlockSize);
      end;
-     //Form1.Canvas.Brush.Color := RGBToColor(255, 255, 255);
+
 end;
 
 procedure drawMap();
@@ -96,8 +98,9 @@ var
    Line:String;
 begin
     CurOffSetY:=0;
+    Form1.Canvas.Brush.Color := RGBToColor(255, 255, 255);
     Form1.Canvas.Clear;
-    Form1.Canvas.Refresh;
+    //Form1.Canvas.Refresh;
     Form1.Canvas.Brush.Color := WallColor;
     for i:= 1 to MapSize do begin
         CurOffSetX:=0;
@@ -157,9 +160,14 @@ begin
       Snake.Body[3]:=newPoint(deltaLength-2,10);
       Form1.Canvas.Brush.Color:=RGBToColor(255, 255, 255);
       Form1.Canvas.FillRect(Snake.Body[3].X,Snake.Body[3].Y,Snake.Body[3].X-BlockSize,Snake.Body[3].Y-BlockSize);
-      delay(100);
       DrawGame();
     end;
+end;
+
+procedure gameTick();
+begin
+   inc(TickNumber);
+   drawGame();
 end;
 
 procedure TForm1.BClearClick(Sender: TObject);
@@ -180,10 +188,12 @@ begin
     Form1.Canvas.Brush.Color:=RGBToColor(255, 255, 255);
     Form1.Canvas.FillRect(0,0,1000,1000);
     NewGame();
+    Timer1.Enabled:=True;
 end;
 
-procedure TForm1.Image2Click(Sender: TObject);
+procedure TForm1.Timer1Timer(Sender: TObject);
 begin
+    gameTick();
 end;
 
 end.
