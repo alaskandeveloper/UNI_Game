@@ -43,6 +43,8 @@ type
   TSnake = record
     Face:Directs;
     Body:array[1..50] of Point;
+    CurLengthSnake:integer;
+    MaxSnakeLength:integer;
   end;
 
 
@@ -54,7 +56,6 @@ var
   i,j:integer;
   MapSize:integer;
   Snake:TSnake;
-  MaxSnakeLength:integer;
   LineSize:integer;
 
 
@@ -64,11 +65,23 @@ var
 procedure DrawSnake();
 begin
      Form1.Canvas.Brush.Color := SnakeColor;
-     for i:= 1 to MaxSnakeLength do begin
+     for i:= 1 to Snake.MaxSnakeLength do begin
          if Snake.Body[i].X <> 0 then
          Form1.Canvas.FillRect(Snake.Body[i].X,Snake.Body[i].Y,Snake.Body[i].X+BlockSize,Snake.Body[i].Y+BlockSize);
      end;
      Form1.Canvas.Brush.Color := RGBToColor(255, 255, 255);
+end;
+
+procedure CreateSnake();
+begin
+     Snake.Face:= E;
+     Snake.Body[1].X:=7*BlockSize;
+     Snake.Body[1].Y:=10*BlockSize;
+     Snake.Body[2].X:=7*BlockSize-((2-1)*BlockSize);
+     Snake.Body[2].Y:=10*BlockSize;
+     Snake.Body[3].X:=7*BlockSize-((3-1)*BlockSize);
+     Snake.Body[3].Y:=10*BlockSize;
+
 end;
 
 procedure DrawMap();
@@ -124,19 +137,13 @@ begin
     Map[20]:='####################################';
 
     BlockSize:=20;
-    MaxSnakeLength:=50;
+    Snake.MaxSnakeLength:=50;
     SnakeColor:= RGBToColor(206, 224, 166);
     WallColor:=1;
     Form1.Canvas.Brush.Color:=RGBToColor(255, 255, 255);
     Form1.Canvas.FillRect(0,0,1000,1000);
+    CreateSnake();
 
-
-     Snake.Body[1].X:=7*BlockSize;
-     Snake.Body[1].Y:=10*BlockSize;
-     Snake.Body[2].X:=7*BlockSize-((2-1)*BlockSize);
-     Snake.Body[2].Y:=10*BlockSize;
-     Snake.Body[3].X:=7*BlockSize-((3-1)*BlockSize);
-     Snake.Body[3].Y:=10*BlockSize;
 
 end;
 
