@@ -60,7 +60,13 @@ var
   Snake:TSnake;
 
 
-procedure DrawSnake();
+  //function newPoint(X,Y:integer):point;
+  //begin
+  //     newPoint.X:=X;
+  //     newPoint.Y:=Y;
+  //end;
+
+procedure drawSnake();
 begin
      Form1.Canvas.Brush.Color := SnakeColor;
      for i:= 1 to Snake.MaxLength do begin
@@ -70,20 +76,25 @@ begin
      Form1.Canvas.Brush.Color := RGBToColor(255, 255, 255);
 end;
 
-procedure CreateSnake();
+procedure createSnake();
+
+    function newPoint(X,Y:integer):point;
+  begin
+       newPoint.X:=X;
+       newPoint.Y:=Y;
+  end;
 begin
      Snake.Face:= E;
      Snake.MaxLength:=50;
      SnakeColor:= RGBToColor(206, 224, 166);
-     Snake.Body[1].X:=7;
-     Snake.Body[1].Y:=10;
-     Snake.Body[2].X:=7-((2-1));
-     Snake.Body[2].Y:=10;
-     Snake.Body[3].X:=7-((3-1));
-     Snake.Body[3].Y:=10;
+     Snake.Body[1]:=newPoint(7,10);
+     Snake.Body[2]:=newPoint(7-((2-1)),10);
+     Snake.Body[3]:=newPoint(7-((3-1)),10);
 end;
 
-procedure DrawMap();
+
+
+procedure drawMap();
 var
    CurOffSetX:integer;
    CurOffSetY:integer;
@@ -104,13 +115,13 @@ begin
         CurOffSetY:=CurOffSetY+BlockSize;
     end;
 end;
-procedure DrawGame();
+procedure drawGame();
 begin
     DrawMap();
     DrawSnake();
 
 end;
-procedure NewGame();
+procedure newGame();
 begin
     BlockSize:=20;
     WallColor:=1;
@@ -146,7 +157,7 @@ begin
 end;
 
 
-procedure SnakeMove();
+procedure snakeMove();
 var
   deltaLength:integer;
 begin
