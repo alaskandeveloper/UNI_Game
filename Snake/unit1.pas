@@ -55,9 +55,11 @@ var
   BlockSize:integer;
   i,j:integer;
   MapSize:integer;
+  Snake:TSnake;
   LineSize:integer;
 
-  Snake:TSnake;
+
+
 
 
 procedure DrawSnake();
@@ -73,14 +75,13 @@ end;
 procedure CreateSnake();
 begin
      Snake.Face:= E;
-     Snake.MaxSnakeLength:=50;
-     SnakeColor:= RGBToColor(206, 224, 166);
      Snake.Body[1].X:=7*BlockSize;
      Snake.Body[1].Y:=10*BlockSize;
      Snake.Body[2].X:=7*BlockSize-((2-1)*BlockSize);
      Snake.Body[2].Y:=10*BlockSize;
      Snake.Body[3].X:=7*BlockSize-((3-1)*BlockSize);
      Snake.Body[3].Y:=10*BlockSize;
+
 end;
 
 procedure DrawMap();
@@ -112,8 +113,6 @@ begin
 end;
 procedure NewGame();
 begin
-    BlockSize:=20;
-    WallColor:=1;
     MapSize:=20;
     LineSize:=36;
     Map[1]:='####################################';
@@ -137,7 +136,10 @@ begin
     Map[19]:='#                                  #';
     Map[20]:='####################################';
 
-
+    BlockSize:=20;
+    Snake.MaxSnakeLength:=50;
+    SnakeColor:= RGBToColor(206, 224, 166);
+    WallColor:=1;
     Form1.Canvas.Brush.Color:=RGBToColor(255, 255, 255);
     Form1.Canvas.FillRect(0,0,1000,1000);
     CreateSnake();
