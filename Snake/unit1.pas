@@ -66,6 +66,12 @@ begin
     newPoint.Y:=Y;
 end;
 
+function nextLocation():Point;
+
+begin
+
+end;
+
 procedure createSnake();
 begin
      Snake.Face:= E;
@@ -116,7 +122,6 @@ end;
 procedure drawGame();
 begin
     DrawMap();
-    DrawSnake();
 end;
 procedure newGame();
 begin
@@ -160,7 +165,7 @@ begin
       Snake.Body[3]:=newPoint(deltaLength-2,10);
       Form1.Canvas.Brush.Color:=RGBToColor(255, 255, 255);
       Form1.Canvas.FillRect(Snake.Body[3].X,Snake.Body[3].Y,Snake.Body[3].X-BlockSize,Snake.Body[3].Y-BlockSize);
-      DrawGame();
+      DrawSnake();
     end;
 end;
 
