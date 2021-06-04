@@ -40,7 +40,7 @@ type
     Y:integer;
   end;
 
-TSnake = record
+  TSnake = record
     Face:Directs;
     Body:array[1..50] of Point;
     CurLength:integer;
@@ -64,21 +64,6 @@ begin
     newPoint.Y:=Y;
 end;
 
-procedure drawSnake();
-var
-  locationX:integer;
-  locationY:integer;
-begin
-     Form1.Canvas.Brush.Color := SnakeColor;
-     for i:= 1 to Snake.CurLength do begin
-         locationX:=Snake.Body[i].X*BlockSize;
-         locationY:=Snake.Body[i].Y*BlockSize;
-         if locationX <> 0 then
-         Form1.Canvas.FillRect(locationX,locationY,locationX + BlockSize,locationY + BlockSize);
-     end;
-   //  Form1.Canvas.Brush.Color := RGBToColor(255, 255, 255);
-end;
-
 procedure createSnake();
 begin
      Snake.Face:= E;
@@ -88,6 +73,20 @@ begin
      Snake.Body[1]:=newPoint(7,10);
      Snake.Body[2]:=newPoint(6,10);
      Snake.Body[3]:=newPoint(5,10);
+end;
+
+procedure drawSnake();
+var
+  locationX:integer;
+  locationY:integer;
+begin
+     Form1.Canvas.Brush.Color := SnakeColor;
+     for i:= 1 to Snake.CurLength do begin
+         locationX:=Snake.Body[i].X*BlockSize;
+         locationY:=Snake.Body[i].Y*BlockSize;
+         Form1.Canvas.FillRect(locationX,locationY,locationX + BlockSize,locationY + BlockSize);
+     end;
+     //Form1.Canvas.Brush.Color := RGBToColor(255, 255, 255);
 end;
 
 procedure drawMap();
@@ -143,8 +142,6 @@ begin
     Map[19]:='#                                  #';
     Map[20]:='####################################';
 
-    Form1.Canvas.Brush.Color:=RGBToColor(255, 255, 255);
-    Form1.Canvas.FillRect(0,0,1000,1000);
     CreateSnake();
 end;
 
@@ -172,13 +169,17 @@ end;
 
 procedure TForm1.BDrawClick(Sender: TObject);
 begin
+    Form1.Canvas.Brush.Color:=RGBToColor(255, 255, 255);
+    Form1.Canvas.FillRect(0,0,1000,1000);
     DrawGame();
     SnakeMove();
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
-     NewGame();
+    Form1.Canvas.Brush.Color:=RGBToColor(255, 255, 255);
+    Form1.Canvas.FillRect(0,0,1000,1000);
+    NewGame();
 end;
 
 procedure TForm1.Image2Click(Sender: TObject);
