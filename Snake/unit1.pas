@@ -102,7 +102,11 @@ var
 begin
     snakeMove:=True;
     newLocation:=nextLocation();
-    if IsEmpty(newLocation) then begin
+
+    if IsWall(newLocation) then
+      snakeMove:=False;
+
+     if IsEmpty(newLocation) then begin
       for i:= Snake.CurLength downto 2 do begin
           Snake.Body[i].X:=Snake.Body[i-1].X;
           Snake.Body[i].Y:=Snake.Body[i-1].Y;
@@ -110,9 +114,6 @@ begin
       Snake.Body[1]:=newLocation;
     end;
 
-
-    if IsWall(newLocation) then
-      snakeMove:=False;
 end;
 
 procedure createSnake();
