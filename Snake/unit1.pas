@@ -53,7 +53,7 @@ type
 var
   SnakeColor: TColor;
   WallColor:integer;
-  Map:array [1..20] of string;
+  Map:array [1..21] of string;
   BlockSize:integer;
   i,j:integer;
   MapSize:integer;
@@ -88,20 +88,31 @@ end;
 
 function IsEmpty(theLocation:Point):boolean;
 begin
-    IsEmpty:= Map[theLocation.X,theLocation.Y] = ' '
+    IsEmpty:= Map[theLocation.Y+1][theLocation.X+1] = ' '      //Баг с координатми {+1} - недолжно быть так
 end;
 
-procedure snakeMove();
+function IsWall(theLocation:Point):boolean;
+begin
+    IsWall:= Map[theLocation.Y+1][theLocation.X+1] = '#'      //Баг с координатми {+1} - недолжно быть так
+end;
+
+function snakeMove():boolean;
 var
    newLocation:Point;
 begin
+    snakeMove:=True;
     newLocation:=nextLocation();
     if IsEmpty(newLocation) then begin
-      for i:= Snake.CurLength downto 2 do
-          Snake.Body[i]:=Snake.Body[i-1];
+      for i:= Snake.CurLength downto 2 do begin
+          Snake.Body[i].X:=Snake.Body[i-1].X;
+          Snake.Body[i].Y:=Snake.Body[i-1].Y;
+      end;
       Snake.Body[1]:=newLocation;
     end;
 
+
+    if IsWall(newLocation) then
+      snakeMove:=False;
 end;
 
 procedure createSnake();
@@ -160,7 +171,7 @@ procedure newGame();
 begin
     BlockSize:=20;
     WallColor:=1;
-    MapSize:=20;
+    MapSize:=21;
     LineSize:=36;
     Map[1]:='####################################';
     Map[2]:='#                                  #';
@@ -171,8 +182,8 @@ begin
     Map[7]:='#                                  #';
     Map[8]:='#                                  #';
     Map[9]:='#                                  #';
-    Map[10]:='#                                  #';
-    Map[11]:='#                                  #';
+    Map[10]:='#                      #           #';
+    Map[11]:='#                      #           #';
     Map[12]:='#                                  #';
     Map[13]:='#                                  #';
     Map[14]:='#                                  #';
@@ -181,7 +192,8 @@ begin
     Map[17]:='#                                  #';
     Map[18]:='#                                  #';
     Map[19]:='#                                  #';
-    Map[20]:='####################################';
+    Map[20]:='#                                  #';
+    Map[21]:='####################################';
 
     CreateSnake();
 end;
@@ -189,8 +201,10 @@ end;
 procedure gameTick();
 begin
    inc(TickNumber);
-   snakeMove();
-   drawGame();
+   if snakeMove() then
+      drawGame()
+   else
+     Form1.Timer1.Enabled:=False;
 
 end;
 
