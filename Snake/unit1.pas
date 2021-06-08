@@ -61,7 +61,7 @@ var
   Snake:TSnake;
   TickNumber:integer;
 
-function newPoint(X,Y:integer):point;
+function newPoint(X,Y:integer):Point;
 begin
     newPoint.X:=X;
     newPoint.Y:=Y;
@@ -74,22 +74,20 @@ var
 begin
     NewX:= Snake.Body[1].X;
     NewY:= Snake.Body[1].Y;
-    if Snake.Face = N then begin
-      nextLocation.X:=NewX;
-      nextLocation.Y:=NewY-1;
-    end;
-    if Snake.Face = S then begin
-      nextLocation.X:=NewX;
-      nextLocation.Y:=NewY+1;
-    end;
-    if Snake.Face = W then begin
-      nextLocation.X:=NewX-1;
-      nextLocation.Y:=NewY;
-    end;
-    if Snake.Face = E then begin
-      nextLocation.X:=NewX+1;
-      nextLocation.Y:=NewY;
-    end;
+    if Snake.Face = N then
+      NewY:=NewY-1;
+    if Snake.Face = S then
+      NewY:=NewY+1;
+    if Snake.Face = W then
+      NewX:=NewX-1;
+    if Snake.Face = E then
+      NewX:=NewX+1;
+    nextLocation.X:=NewX;
+    nextLocation.Y:=NewY;
+end;
+
+procedure snakeMove();
+begin
 end;
 
 procedure createSnake();
@@ -172,10 +170,6 @@ begin
     Map[20]:='####################################';
 
     CreateSnake();
-end;
-
-procedure snakeMove();
-begin
 end;
 
 procedure gameTick();
