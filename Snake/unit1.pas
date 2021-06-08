@@ -86,16 +86,21 @@ begin
     nextLocation.Y:=NewY;
 end;
 
+function IsEmpty(theLocation:Point):boolean;
+begin
+    IsEmpty:= Map[theLocation.X,theLocation.Y] = ' '
+end;
+
 procedure snakeMove();
 var
    newLocation:Point;
 begin
     newLocation:=nextLocation();
-
-
+    if IsEmpty(newLocation) then begin
       for i:= Snake.CurLength downto 2 do
           Snake.Body[i]:=Snake.Body[i-1];
       Snake.Body[1]:=newLocation;
+    end;
 
 end;
 
