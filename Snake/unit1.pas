@@ -87,10 +87,15 @@ begin
 end;
 
 procedure snakeMove();
+var
+   newLocation:Point;
 begin
-    for i:= Snake.CurLength downto 2 do
-        Snake.Body[i]:=Snake.Body[i-1];
-    Snake.Body[1]:=nextLocation();
+    newLocation:=nextLocation();
+
+
+      for i:= Snake.CurLength downto 2 do
+          Snake.Body[i]:=Snake.Body[i-1];
+      Snake.Body[1]:=newLocation;
 
 end;
 
