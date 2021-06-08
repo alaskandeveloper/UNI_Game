@@ -69,10 +69,27 @@ end;
 
 function nextLocation():Point;
 var
-  HeadX:integer;
-  HeadY:integer;
+  NewX:integer;
+  NewY:integer;
 begin
-
+    NewX:= Snake.Body[1].X;
+    NewY:= Snake.Body[1].Y;
+    if Snake.Face = N then begin
+      nextLocation.X:=NewX;
+      nextLocation.Y:=NewY-1;
+    end;
+    if Snake.Face = S then begin
+      nextLocation.X:=NewX;
+      nextLocation.Y:=NewY+1;
+    end;
+    if Snake.Face = W then begin
+      nextLocation.X:=NewX-1;
+      nextLocation.Y:=NewY;
+    end;
+    if Snake.Face = E then begin
+      nextLocation.X:=NewX+1;
+      nextLocation.Y:=NewY;
+    end;
 end;
 
 procedure createSnake();
