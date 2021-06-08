@@ -88,6 +88,10 @@ end;
 
 procedure snakeMove();
 begin
+    for i:= Snake.CurLength downto 2 do
+        Snake.Body[i]:=Snake.Body[i-1];
+    Snake.Body[1]:=nextLocation();
+
 end;
 
 procedure createSnake();
@@ -175,7 +179,9 @@ end;
 procedure gameTick();
 begin
    inc(TickNumber);
+   snakeMove();
    drawGame();
+
 end;
 
 procedure TForm1.BClearClick(Sender: TObject);
